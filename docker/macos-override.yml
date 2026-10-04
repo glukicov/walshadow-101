@@ -1,0 +1,12 @@
+# Docker Desktop for Mac: upstream's init script fails with "bad interpreter: Permission denied"
+# when bind-mounted straight into /docker-entrypoint-initdb.d. Copy it into the container first.
+services:
+  postgres:
+    volumes: !override
+      - postgres-data:/var/lib/postgresql
+      - ./init/quickstart:/init-src:ro
+    entrypoint:
+      - sh
+      - -c
+      - cp /init-src/* /docker-entrypoint-initdb.d/ && exec docker-entrypoint.sh "$$@"
+      - --

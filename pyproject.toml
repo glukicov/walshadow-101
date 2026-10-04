@@ -1,0 +1,26 @@
+[project]
+name = "walshadow-101"
+version = "0.1.0"
+description = "Teaching demo for physical-WAL CDC, the technique behind ClickHouse/walshadow"
+requires-python = ">=3.13"
+dependencies = ["psycopg[binary]>=3.2"]
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.8", "ty>=0.0.1a1"]
+
+[tool.ruff]
+line-length = 120
+extend-exclude = ["upstream"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ty.src]
+exclude = ["upstream"]
+
+[tool.ty.environment]
+extra-paths = ["demo"]
+
+[tool.pytest.ini_options]
+pythonpath = ["demo"]
+testpaths = ["tests"]
